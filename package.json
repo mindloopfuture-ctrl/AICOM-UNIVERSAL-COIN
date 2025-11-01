@@ -1,0 +1,12 @@
+{
+  "name": "aicom-universal-coin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy:eth": "npx hardhat run scripts/deploy-token-eth.js --network mainnet"
+  },
+  "devDependencies": {
+    "hardhat": "^2.22.12",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+  }
+}

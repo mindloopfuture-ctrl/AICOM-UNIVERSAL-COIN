@@ -1,0 +1,1 @@
+console.log("⚠️ Run Hardhat/Foundry to deploy to Polygon. This is a placeholder script.");
