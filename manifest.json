@@ -1,0 +1,9 @@
+{
+  "name": "AICOM Network",
+  "short_name": "AICOM",
+  "start_url": "/interface/index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": []
+}

@@ -1,287 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AICOM Universal Coin · Multichain</title>
-  <meta name="description" content="AICOM Universal Coin — blockchain universal con puente multichain (ETH, BNB, Polygon, Solana) y panel IA." />
-  <style>
-    :root {
-      --bg: radial-gradient(circle at top, #040b1a, #020617 55%, #000 100%);
-      --card:#0f172a;
-      --accent:#38bdf8;
-      --accent2:#f97316;
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
-      background:var(--bg);
-      color:#e2e8f0;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-    }
-    header{
-      padding:1rem 1.25rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid rgba(148,163,184,.25);
-      backdrop-filter: blur(18px);
-    }
-    .badge{
-      padding:.25rem .75rem;
-      border:1px solid rgba(226,232,240,.25);
-      border-radius:9999px;
-      font-size:.65rem;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-    main{
-      flex:1;
-      padding:1.5rem;
-      max-width:1160px;
-      width:100%;
-      margin:0 auto;
-      display:flex;
-      flex-direction:column;
-      gap:1.25rem;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: 1.3fr .7fr;
-      gap:1.25rem;
-    }
-    .card{
-      background:radial-gradient(circle at 10% 10%, rgba(15,23,42,.8) 0%, rgba(2,6,23,.55) 70%);
-      border:1px solid rgba(148,163,184,.15);
-      border-radius:1.25rem;
-      padding:1.25rem 1.3rem 1.15rem;
-      backdrop-filter: blur(12px);
-    }
-    h1{
-      font-size:1.7rem;
-      margin:.15rem 0 0;
-      line-height:1.05;
-    }
-    .muted{color:#94a3b8;font-size:.85rem;margin-top:.35rem;}
-    .chain-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      background:rgba(15,23,42,.4);
-      border:1px solid rgba(148,163,184,.15);
-      border-radius:999px;
-      padding:.25rem .6rem;
-      font-size:.65rem;
-    }
-    .chains-wrap{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.8rem;}
-    .btn-primary{
-      background:linear-gradient(120deg, #38bdf8, #6366f1);
-      color:white;
-      border:none;
-      border-radius:.7rem;
-      padding:.55rem 1.25rem;
-      font-weight:600;
-      cursor:pointer;
-    }
-    .lang-toggle{
-      display:flex;
-      gap:.3rem;
-      background:rgba(15,23,42,.35);
-      border:1px solid rgba(148,163,184,.15);
-      border-radius:999px;
-      padding:.25rem;
-    }
-    .lang-toggle button{
-      background:transparent;
-      border:none;
-      color:#94a3b8;
-      font-weight:500;
-      padding:.25rem .8rem;
-      border-radius:999px;
-    }
-    .lang-toggle button.active{background:rgba(99,102,241,.4);color:white;}
-    pre{
-      background:#020617;
-      color:#38bdf8;
-      padding:.75rem .85rem;
-      border-radius:.5rem;
-      overflow:auto;
-      font-size:.75rem;
-    }
-    .section-title{font-weight:650;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.45rem;color:#94a3b8;}
-    .table{width:100%;border-collapse:collapse;font-size:.75rem;}
-    .table th,.table td{border-bottom:1px solid rgba(148,163,184,.12);padding:.4rem .25rem;text-align:left;}
-    .ok{color:#22c55e;font-weight:600;}
-    footer{padding:.75rem 1.25rem 1.35rem;color:#64748b;font-size:.75rem;text-align:center;}
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr;}
-      header{flex-wrap:wrap;gap:.75rem;}
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AICOM Network • Universal Coin Bridge</title>
+  <meta name="theme-color" content="#020617">
+  <link rel="manifest" href="../manifest.json">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div style="display:flex;gap:.75rem;align-items:center;">
-      <div style="font-size:1.05rem;font-weight:700;letter-spacing:-.03em;">AICOM Universal Coin</div>
-      <span class="badge" id="ui-network">Multichain</span>
-    </div>
-    <div class="lang-toggle">
-      <button id="btn-es" class="active">ES</button>
-      <button id="btn-en">EN</button>
-    </div>
+  <header class="hero">
+    <h1>🌐 AICOM UNIVERSAL COIN</h1>
+    <p class="subtitle">Universal blockchain coin and cross-chain bridge powered by AICOM Network.</p>
+    <p class="info">Operador: R-M-P • Modo: Guardian Arcanum</p>
   </header>
-  <main>
-    <div class="grid">
-      <section class="card" id="hero">
-        <p class="section-title" id="t-label">Moneda blockchain universal</p>
-        <h1 id="t-title">AICOM Universal Coin — capa económica para todos tus mundos</h1>
-        <p class="muted" id="t-sub">
-          Despliegue directo en Ethereum, BNB Chain, Polygon y Solana. Puentes nativos. Gobernanza lista.
-        </p>
-        <div class="chains-wrap">
-          <span class="chain-pill">● Ethereum mainnet</span>
-          <span class="chain-pill">● BNB Chain</span>
-          <span class="chain-pill">● Polygon</span>
-          <span class="chain-pill">● Solana (SPL)</span>
-          <span class="chain-pill">∞ AICOM L2</span>
-        </div>
-        <div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap;">
-          <button class="btn-primary" id="btn-deploy">Ver scripts de despliegue</button>
-          <button class="btn-primary" style="background:rgba(15,23,42,.4);border:1px solid rgba(226,232,240,.08);" id="btn-contracts">
-            Ver contratos
-          </button>
-        </div>
-      </section>
-      <aside class="card" id="panel">
-        <p class="section-title" id="t-status">Estado del despliegue</p>
-        <table class="table">
-          <tr><th>Ethereum</th><td class="ok" id="eth-status">listo (script)</td></tr>
-          <tr><th>BNB</th><td class="ok" id="bsc-status">listo (script)</td></tr>
-          <tr><th>Polygon</th><td class="ok" id="poly-status">listo (script)</td></tr>
-          <tr><th>Solana</th><td class="ok" id="sol-status">listo (anchor)</td></tr>
-        </table>
-        <p class="muted" id="t-hint" style="margin-top:.55rem;">
-          Sube esta carpeta entera a GitHub → habilita Pages → listo.
-        </p>
-      </aside>
-    </div>
 
-    <section class="card" id="code-area" style="display:block;">
-      <p class="section-title" id="t-code">scripts /deploy</p>
-      <pre id="code-block">
-// scripts/deploy-token-eth.js
-const hre = require("hardhat");
-async function main() {
-  const Token = await hre.ethers.getContractFactory("AICOMUniversalTokenETH");
-  const token = await Token.deploy();
-  await token.waitForDeployment();
-  console.log("AICOM ETH deployed to:", await token.getAddress());
-}
-main().catch((e)=>{console.error(e);process.exit(1);});
-      </pre>
+  <main>
+    <section class="chains">
+      <h2>Conectar redes</h2>
+      <div class="chain-grid">
+        <div class="chain-card">
+          <h3>Ethereum</h3>
+          <button onclick="connect('ethereum')">Conectar</button>
+        </div>
+        <div class="chain-card">
+          <h3>BSC</h3>
+          <button onclick="connect('bsc')">Conectar</button>
+        </div>
+        <div class="chain-card">
+          <h3>Polygon</h3>
+          <button onclick="connect('polygon')">Conectar</button>
+        </div>
+        <div class="chain-card">
+          <h3>Solana</h3>
+          <button onclick="connect('solana')">Conectar</button>
+        </div>
+      </div>
     </section>
 
-    <section class="card">
-      <p class="section-title" id="t-arch">Arquitectura multichain</p>
-      <p class="muted" id="t-arch-text">
-        Este paquete incluye contratos por cadena + scripts de despliegue + página estática para operar y documentar.
-        Se puede ampliar con bridges (LayerZero/Wormhole) y gobernanza desde AICOM Core.
-      </p>
+    <section class="actions">
+      <h2>Simulación de transferencia</h2>
+      <label>Monto AICOM:</label>
+      <input id="amount" type="number" min="0" step="0.01" value="10" />
+      <button onclick="simulateTransfer()">Simular transferencia</button>
+      <p id="tx-status"></p>
+    </section>
+
+    <section class="sentinel">
+      <h2>AICOM_SENTINEL v2</h2>
+      <pre id="sentinel-log"></pre>
     </section>
   </main>
+
   <footer>
-    AICOM Network · paquete autodesplegable · ES/EN · v2
+    <p>AICOM • Arcanum Core • AUREA • 2025</p>
   </footer>
-  <script>
-    const ES = {
-      label:"Moneda blockchain universal",
-      title:"AICOM Universal Coin — capa económica para todos tus mundos",
-      sub:"Despliegue directo en Ethereum, BNB Chain, Polygon y Solana. Puentes nativos. Gobernanza lista.",
-      status:"Estado del despliegue",
-      hint:"Sube esta carpeta entera a GitHub → habilita Pages → listo.",
-      code:"scripts /deploy",
-      arch:"Arquitectura multichain",
-      archText:"Este paquete incluye contratos por cadena + scripts de despliegue + página estática para operar y documentar. Se puede ampliar con bridges (LayerZero/Wormhole) y gobernanza desde AICOM Core."
-    };
-    const EN = {
-      label:"Universal blockchain coin",
-      title:"AICOM Universal Coin — economic layer for every chain",
-      sub:"Direct deploy to Ethereum, BNB Chain, Polygon and Solana. Native bridges. Governance ready.",
-      status:"Deployment status",
-      hint:"Upload this whole folder to GitHub → enable Pages → done.",
-      code:"scripts /deploy",
-      arch:"Multichain architecture",
-      archText:"This package ships per-chain contracts + deploy scripts + static page for ops & docs. You can extend with bridges (LayerZero/Wormhole) and governance from AICOM Core."
-    };
-    const refs = {
-      label:document.getElementById("t-label"),
-      title:document.getElementById("t-title"),
-      sub:document.getElementById("t-sub"),
-      status:document.getElementById("t-status"),
-      hint:document.getElementById("t-hint"),
-      code:document.getElementById("t-code"),
-      arch:document.getElementById("t-arch"),
-      archText:document.getElementById("t-arch-text"),
-      btnEs:document.getElementById("btn-es"),
-      btnEn:document.getElementById("btn-en"),
-      codeBlock:document.getElementById("code-block"),
-      btnDeploy:document.getElementById("btn-deploy"),
-      btnContracts:document.getElementById("btn-contracts"),
-    };
-    function setLang(data){
-      refs.label.textContent=data.label;
-      refs.title.textContent=data.title;
-      refs.sub.textContent=data.sub;
-      refs.status.textContent=data.status;
-      refs.hint.textContent=data.hint;
-      refs.code.textContent=data.code;
-      refs.arch.textContent=data.arch;
-      refs.archText.textContent=data.archText;
-    }
-    refs.btnEs.onclick=()=>{
-      refs.btnEs.classList.add("active");
-      refs.btnEn.classList.remove("active");
-      setLang(ES);
-    };
-    refs.btnEn.onclick=()=>{
-      refs.btnEn.classList.add("active");
-      refs.btnEs.classList.remove("active");
-      setLang(EN);
-    };
-    refs.btnDeploy.onclick=()=>{
-      refs.codeBlock.textContent = `// scripts/deploy-all.js
-// Ejecuta despliegues en ETH, BNB y Polygon
-const { execSync } = require("child_process");
-try {
-  execSync("npx hardhat run scripts/deploy-token-eth.js --network mainnet", {stdio:"inherit"});
-  execSync("node scripts/deploy-token-bsc.js", {stdio:"inherit"});
-  execSync("node scripts/deploy-token-polygon.js", {stdio:"inherit"});
-  console.log("AICOM Universal Coin deployed on all chains.");
-} catch (e) { console.error(e); }`;
-    };
-    refs.btnContracts.onclick=()=>{
-      refs.codeBlock.textContent = `// contracts/AICOMUniversalTokenETH.sol
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-contract AICOMUniversalTokenETH {
-  string public name = "AICOM Universal Coin";
-  string public symbol = "AICOM";
-  uint8 public decimals = 18;
-  uint256 public totalSupply = 1_000_000_000 ether;
-  mapping(address=>uint256) public balanceOf;
-  event Transfer(address indexed from, address indexed to, uint256 value);
-  constructor(){ balanceOf[msg.sender] = totalSupply; emit Transfer(address(0), msg.sender, totalSupply); }
-  function transfer(address to, uint256 value) external returns (bool){
-    require(balanceOf[msg.sender] >= value, "insufficient");
-    unchecked { balanceOf[msg.sender] -= value; balanceOf[to] += value; }
-    emit Transfer(msg.sender, to, value);
-    return true;
-  }
-}`;
-    };
-  </script>
+
+  <script src="app.js"></script>
 </body>
 </html>
