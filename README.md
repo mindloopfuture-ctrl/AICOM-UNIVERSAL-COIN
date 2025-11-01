@@ -1,14 +1,14 @@
-# AICOM Deployment v2
+# 🌐 AICOM ∞ — Sovereign Digital Identity System
+### Identidad Digital Soberana • ES/EN • BSC / ETH / Polygon
 
-Paquete preparado para R-M-P.
+[![BSC Mainnet](https://img.shields.io/badge/BSC-Mainnet-yellow.svg)](https://bscscan.com/)
+[![IPFS Mirror](https://img.shields.io/badge/IPFS-bafkreidzq44dihodipy23sgnd3ajox6e7y2y7ruhetvowqdpyse75ov2ai-blue.svg)](https://ipfs.io/ipfs/bafkreidzq44dihodipy23sgnd3ajox6e7y2y7ruhetvowqdpyse75ov2ai)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Contenido
-- `interface/` → frontend listo para GitHub Pages / Netlify
-- `contracts/` → aquí van los contratos `.sol` (BSC, ETH, Polygon, Solana)
-- `scripts/` → ejemplos de despliegue con Hardhat/Remix
+---
 
-## Uso rápido
-1. Sube esta carpeta al repositorio `AICOM-UNIVERSAL-COIN`.
-2. Activa GitHub Pages apuntando a `/interface`.
-3. Abre la página y conecta tu wallet.
-4. Compila y despliega el contrato de la red que quieras.
+## 🧠 AICOM ∞ Overview
+**AICOM** es un **sistema descentralizado de dominios e identidad digital soberana**.  
+Permite registrar dominios `.aicom` en blockchain y enlazarlos con metadatos en **IPFS**, creando un ecosistema Web3 real, ético y bilingüe.
+
+> Built by **R‑M‑P ⚡ AICOM Protocol**

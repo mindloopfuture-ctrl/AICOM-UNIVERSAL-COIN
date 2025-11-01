@@ -1,0 +1,14 @@
+{
+  "name": "AICOM DNS v3.1 \u2014 Sovereign Multichain Identity",
+  "cid_master": "bafkreidzq44dihodipy23sgnd3ajox6e7y2y7ruhetvowqdpyse75ov2ai",
+  "author": "R\u2011M\u2011P \u26a1 AICOM Protocol",
+  "networks": [
+    "BSC",
+    "ETH",
+    "Polygon"
+  ],
+  "language": [
+    "es",
+    "en"
+  ]
+}
