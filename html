@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AICOM • UNIVERSAL COIN</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="AICOM Universal Coin — multichain, AI-powered, cross-chain bridge ready." />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AICOM • UNIVERSAL COIN</div>
+    <div class="lang-switch" id="lang-switch">EN</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 id="title-es">Moneda blockchain universal, diseñada para dominar el futuro digital.</h1>
+      <h1 id="title-en" class="hidden">Universal blockchain coin, designed to dominate the digital future.</h1>
+
+      <p id="subtitle-es">
+        AICOM-UNIVERSAL-COIN se despliega en Ethereum/EVM y se refleja en otras redes mediante puente. Arquitectura para integrarse con AICOM, Arcanum Core y AQR.
+      </p>
+      <p id="subtitle-en" class="hidden">
+        AICOM-UNIVERSAL-COIN deploys on Ethereum/EVM and mirrors to other chains through a bridge. Architecture to integrate with AICOM, Arcanum Core and AQR.
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="https://github.com/mindloopfuture-ctrl/AICOM-UNIVERSAL-COIN" target="_blank">GitHub Repo</a>
+        <button class="btn secondary" id="connect-btn">🔗 Conectar Wallet (EVM)</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 id="status-title-es">Estado del despliegue</h2>
+      <h2 id="status-title-en" class="hidden">Deployment status</h2>
+
+      <ul id="status-list">
+        <li>✅ Repositorio: activo</li>
+        <li>⚠️ Contrato en mainnet: necesitas desplegar con Hardhat</li>
+        <li>🌉 Puente BSC/Polygon: pendiente de dirección</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2 id="how-es">Cómo desplegar el contrato (desde tu PC o Replit)</h2>
+      <h2 id="how-en" class="hidden">How to deploy the contract (from your PC or Replit)</h2>
+
+      <pre class="code">
+npm install
+npx hardhat compile
+npx hardhat run scripts/deploy-token-eth.js --network sepolia
+# para mainnet cambia --network mainnet
+      </pre>
+    </section>
+
+    <section class="panel">
+      <h2 id="multi-es">Multichain</h2>
+      <h2 id="multi-en" class="hidden">Multichain</h2>
+      <p id="multi-text-es">
+        • Red base: Ethereum/EVM<br/>
+        • Réplica: BNB Chain, Polygon<br/>
+        • Solana: vía nodo puente (fuera de front) <br/>
+        • AICOM Net: futura sidechain propia
+      </p>
+      <p id="multi-text-en" class="hidden">
+        • Base network: Ethereum/EVM<br/>
+        • Mirror: BNB Chain, Polygon<br/>
+        • Solana: via bridge node (off-front) <br/>
+        • AICOM Net: future own sidechain
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    AICOM Universal • Powered by R-M-P • ES / EN
+  </footer>
+
+  <script>
+    const langSwitch = document.getElementById('lang-switch');
+    const esElems = document.querySelectorAll('#title-es, #subtitle-es, #status-title-es, #how-es, #multi-es, #multi-text-es');
+    const enElems = document.querySelectorAll('#title-en, #subtitle-en, #status-title-en, #how-en, #multi-en, #multi-text-en');
+
+    let current = 'es';
+    langSwitch.addEventListener('click', () => {
+      if (current === 'es') {
+        esElems.forEach(e => e.classList.add('hidden'));
+        enElems.forEach(e => e.classList.remove('hidden'));
+        langSwitch.textContent = 'ES';
+        current = 'en';
+      } else {
+        enElems.forEach(e => e.classList.add('hidden'));
+        esElems.forEach(e => e.classList.remove('hidden'));
+        langSwitch.textContent = 'EN';
+        current = 'es';
+      }
+    });
+
+    // Conectar wallet (Metamask/compatible)
+    document.getElementById('connect-btn').onclick = async () => {
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          alert('✅ Wallet conectada');
+        } catch (e) {
+          alert('❌ No se pudo conectar la wallet: ' + e.message);
+        }
+      } else {
+        alert('Instala Metamask para conectar.');
+      }
+    };
+  </script>
+</body>
+</html>
