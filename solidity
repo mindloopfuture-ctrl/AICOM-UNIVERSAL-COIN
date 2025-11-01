@@ -1,0 +1,158 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+/*
+    AICOM SOVEREIGN DOMAINS ∞ v1.0
+    Todo-en-uno para R-M-P
+    Incluye:
+      - Root .aicom
+      - Resolver
+      - Registrar simple
+    Red: EVM (BSC recomendado)
+    Owner inicial: 0x8A898A58D96013c33477B0a7606a83FD5bec7aBc
+*/
+
+// ---------------------------------------------------------
+// 1. ROOT: autoridad del TLD .aicom
+// ---------------------------------------------------------
+contract AICOMDomainRoot {
+    address public owner;                    // dueño soberano .aicom
+    mapping(bytes32 => address) public domainOwner;    // node -> dueño
+    mapping(bytes32 => address) public domainResolver; // node -> resolver
+
+    event RootOwnerChanged(address indexed newOwner);
+    event DomainRegistered(string name, bytes32 indexed node, address indexed to);
+    event ResolverSet(bytes32 indexed node, address resolver);
+
+    constructor() {
+        // 👇 dueño inicial = R-M-P
+        owner = 0x8A898A58D96013c33477B0a7606a83FD5bec7aBc;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "AICOM: not root owner");
+        _;
+    }
+
+    function changeRootOwner(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "AICOM: zero");
+        owner = newOwner;
+        emit RootOwnerChanged(newOwner);
+    }
+
+    // registra "core" → core.aicom
+    function registerDomain(string calldata name, address to) external onlyOwner returns (bytes32 node) {
+        require(to != address(0), "AICOM: zero to");
+        node = _namehash(name);
+        domainOwner[node] = to;
+        emit DomainRegistered(name, node, to);
+    }
+
+    // setea el resolver de "core" → address del resolver
+    function setResolver(string calldata name, address resolver) external {
+        bytes32 node = _namehash(name);
+        require(
+            msg.sender == domainOwner[node] || msg.sender == owner,
+            "AICOM: not allowed"
+        );
+        domainResolver[node] = resolver;
+        emit ResolverSet(node, resolver);
+    }
+
+    // helper público
+    function namehash(string calldata name) external pure returns (bytes32) {
+        return _namehash(name);
+    }
+
+    // namehash simple: keccak256("name.aicom")
+    function _namehash(string memory name) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked(name, ".aicom"));
+    }
+}
+
+
+// ---------------------------------------------------------
+// 2. RESOLVER: guarda IPFS / URL de cada dominio
+// ---------------------------------------------------------
+interface IAICOMRoot {
+    function domainOwner(bytes32 node) external view returns (address);
+}
+
+contract AICOMResolver {
+    IAICOMRoot public root;
+
+    // node → ipfs
+    mapping(bytes32 => string) public contenthash;
+    // node → url web2
+    mapping(bytes32 => string) public weburl;
+
+    constructor(address rootAddr) {
+        root = IAICOMRoot(rootAddr);
+    }
+
+    modifier onlyDomainOwner(bytes32 node) {
+        require(root.domainOwner(node) == msg.sender, "AICOM: not domain owner");
+        _;
+    }
+
+    // ejemplo: setContenthash(node, "ipfs://bafy...")
+    function setContenthash(bytes32 node, string calldata ipfsCid) external onlyDomainOwner(node) {
+        contenthash[node] = ipfsCid;
+    }
+
+    // ejemplo: setWebURL(node, "https://mindloopfuture-ctrl.github.io/AICOM-UNIVERSAL-COIN/")
+    function setWebURL(bytes32 node, string calldata url) external onlyDomainOwner(node) {
+        weburl[node] = url;
+    }
+
+    // lectura conjunta
+    function getAll(bytes32 node) external view returns (string memory ipfsCid, string memory url) {
+        return (contenthash[node], weburl[node]);
+    }
+}
+
+
+// ---------------------------------------------------------
+// 3. REGISTRAR SIMPLE: para dar/subastar nombres .aicom
+// ---------------------------------------------------------
+interface IAICOMRootLike {
+    function registerDomain(string calldata name, address to) external returns (bytes32);
+    function owner() external view returns (address);
+}
+
+contract AICOMRegistrarSimple {
+    IAICOMRootLike public root;
+    address public admin;
+    uint256 public registerFee; // 0 = gratis
+
+    event DomainRequested(string name, address indexed user);
+    event FeeChanged(uint256 newFee);
+
+    constructor(address rootAddr) {
+        root = IAICOMRootLike(rootAddr);
+        admin = msg.sender;
+        registerFee = 0;
+    }
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "AICOM: not admin");
+        _;
+    }
+
+    // cambiar precio (en wei)
+    function setFee(uint256 newFee) external onlyAdmin {
+        registerFee = newFee;
+        emit FeeChanged(newFee);
+    }
+
+    // cualquiera pide "usuario" → usuario.aicom
+    function registerMyDomain(string calldata name) external payable {
+        require(msg.value >= registerFee, "AICOM: fee too low");
+        root.registerDomain(name, msg.sender);
+        emit DomainRequested(name, msg.sender);
+    }
+
+    function withdraw() external onlyAdmin {
+        payable(admin).transfer(address(this).balance);
+    }
+}
